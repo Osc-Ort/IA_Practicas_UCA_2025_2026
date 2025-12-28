@@ -58,7 +58,7 @@
 ; GAMEOVER: Esta regla controla cuando acaba perdiendo el comecocos, porque ha
 ; consumido todas sus vidas, y avisa al usuario de que ha perdido. 
 (defrule GAMEOVER
-    ?c <- (comecocos (vidas ?v&:(= ?v 0)))
+    ?c <- (comecocos (vidas ?v&:(<= ?v 0)))
     =>
     (TERMINAR_PARTIDA ?c)
     (printout t "Has PERDIDO" crlf)
