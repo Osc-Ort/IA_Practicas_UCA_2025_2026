@@ -1,5 +1,5 @@
 ; Base de hechos iniciales
-(deffacts datos-iniciales 
+(deffacts hechos-iniciales 
     (fiebre alta)
     (color garganta rojo)
     (color organismo oscuro)
