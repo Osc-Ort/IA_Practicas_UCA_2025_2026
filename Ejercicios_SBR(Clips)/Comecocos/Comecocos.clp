@@ -33,6 +33,7 @@
 ; fantasma. En este caso, se decrementa en 1 el número de vidas del comecocos. La posición del
 ; comecocos debe actualizarse, y colocar al comecocos en la casilla de salida 1,1. 
 (defrule MORIR
+    (declare (salience 10))
     ?c <- (comecocos (posX ?x) (posY ?y) (vidas ?v))
     (fantasma (posX ?x) (posY ?y))
     =>
@@ -51,6 +52,7 @@
 ; GAMEOVER: Esta regla controla cuando acaba perdiendo el comecocos, porque ha
 ; consumido todas sus vidas, y avisa al usuario de que ha perdido. 
 (defrule GAMEOVER
+    (declare (salience 10))
     ?c <- (comecocos (vidas ?v&:(<= ?v 0)))
     =>
     (retract ?c)
