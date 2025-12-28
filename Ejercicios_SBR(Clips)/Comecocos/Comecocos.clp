@@ -39,19 +39,12 @@
     (modify ?c (posX 1) (posY 1) (vidas (- ?v 1)))
 )
 
-; Param: {comecocos} ?c
-; Elimina al comecocos para que no pueda moverse luego de terminar partida
-(deffunction TERMINAR_PARTIDA (?c)
-    (retract ?c)
-    (printout t "Partida terminada." crlf)
-)
-
 ; GANAR: Esta regla controla cuando acaba de forma victoriosa el juego, porque el comecocos
 ; se ha comido 10 ó más frutas, y avisa al usuario de que ha ganado. 
 (defrule GANAR
     ?c <- (comecocos (contador ?con&:(>= ?con 10)))
     =>
-    (TERMINAR_PARTIDA ?c)
+    (retract ?c)
     (printout t "Has GANADO." crlf)
 )
 
@@ -60,7 +53,7 @@
 (defrule GAMEOVER
     ?c <- (comecocos (vidas ?v&:(<= ?v 0)))
     =>
-    (TERMINAR_PARTIDA ?c)
+    (retract ?c)
     (printout t "Has PERDIDO" crlf)
 )
 
