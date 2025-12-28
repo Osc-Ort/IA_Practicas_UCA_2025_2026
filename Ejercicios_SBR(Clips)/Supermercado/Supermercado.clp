@@ -68,7 +68,6 @@
 
 ; Existencias Insuficientes: Cuando no hay stock suficiente para realizar la compra, se
 ; avisa al cliente con un mensaje en pantalla y se elimina este pedido. 
-
 (defrule existencias_inexistentes
     ; Mayor preferencia que comprar para quitar en casos de stock insuficiente
     (declare (salience 20))
@@ -79,6 +78,7 @@
     (retract ?ped)
 )
 
+; Hechos iniciales
 (deffacts productos
     (producto (id_producto 1) (nombre leche)(pasillo 3) (stock 45) (precio 1))
     (producto (id_producto 2) (nombre galletas) (pasillo 4)(stock 10) (precio 2.20))
