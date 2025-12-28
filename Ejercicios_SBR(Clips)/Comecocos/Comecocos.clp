@@ -71,8 +71,8 @@
 ; Los límites del tablero MaxFils, MaxCols pueden definirse mediante sendas variables globales. 
 
 (defglobal
-    ?*MaxFils* = 100
-    ?*MaxCols* = 100
+    ?*MaxFils* = 10
+    ?*MaxCols* = 10
 )
 
 (defrule IZQ
