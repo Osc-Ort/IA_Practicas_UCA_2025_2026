@@ -4,36 +4,31 @@
     (multislot nombre)
     (slot movil)
     (slot poblacion)
-    (slot sancion (allowed-values Si No) (default No))
-)
+    (slot sancion (allowed-values Si No) (default No)))
 
 (deftemplate libro
     (slot idlibro)
     (multislot titulo)
     (multislot autor)
     (slot editorial)
-    (slot publicadoen)
-)
+    (slot publicadoen))
 
 (deftemplate hoy
     (slot dia)
     (slot mes)
-    (slot anno)
-)
+    (slot anno))
 
 (deftemplate solicitud
     (slot idlibro)
     (slot idsocio)
-    (slot tipo (allowed-values Prestamo Devolucion))
-)
+    (slot tipo (allowed-values Prestamo Devolucion)))
 
 (deftemplate prestamo
     (slot idlibro)
     (slot idsocio)
     (slot dia)
     (slot mes)
-    (slot anno)
-)
+    (slot anno))
 
 ; Base de hechos iniciales
 (deffacts hechos-iniciales
@@ -48,8 +43,7 @@
     (solicitud (idsocio 4) (idlibro C22) (tipo Prestamo))
     (prestamo (idlibro A2) (idsocio 2) (dia 3) (mes 1) (anno 2026))
     (solicitud (idsocio 2) (idlibro A2) (tipo Devolucion))
-    (hoy (dia 5) (mes 2) (anno 2026))
-)
+    (hoy (dia 5) (mes 2) (anno 2026)))
 
 ; R1: Crea una regla para actualizar la fecha del día de hoy introduciendo el día, mes y año desde el teclado.
 (defrule R1
@@ -64,8 +58,7 @@
     (bind ?an (read))
 
     (retract ?o)
-    (modify ?f (dia ?d) (mes ?m) (anno ?an))
-)
+    (modify ?f (dia ?d) (mes ?m) (anno ?an)))
 
 ; R2: Crea una regla que muestre un mensaje en pantalla cuando una persona realiza una petición de préstamo, pero no es socio registrado en el sistema. 
 (defrule R2
@@ -73,8 +66,7 @@
     (not (socio (idsocio ?id)))
     =>
     (printout t "No existe socio con id " ?id " en el sistema." crlf)
-    (retract ?s)
-)
+    (retract ?s))
 
 ; R3: Cuando un socio no sancionado, que está recogido en el sistema, solicita un libro, con
 ; código válido, y que no está ya prestado, entonces se registrará el préstamo de este
@@ -90,8 +82,7 @@
     =>
     (assert (prestamo (idsocio ?idS) (idlibro ?idL) (dia ?d) (mes ?m) (anno ?an)))
     (retract ?solic)
-    (printout t "Prestamo para el socio con id " ?idS " para el libro con id " ?idL " a sido completado correctamente." crlf)
-)
+    (printout t "Prestamo para el socio con id " ?idS " para el libro con id " ?idL " a sido completado correctamente." crlf))
 
 ; R4: Una solicitud de devolución conlleva que hay un préstamo en curso realizado por el
 ; mismo socio e implicará eliminar el préstamo del sistema así como la solicitud del
@@ -101,5 +92,4 @@
     ?prest <- (prestamo (idlibro ?idL) (idsocio ?idS))
     =>
     (retract ?solic)
-    (retract ?prest)
-)
+    (retract ?prest))
