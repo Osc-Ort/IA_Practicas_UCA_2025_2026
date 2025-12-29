@@ -3,7 +3,7 @@ from __future__ import annotations
 import heapq
 from dataclasses import dataclass, field
 
-from .OchoPiezas import (
+from OchoPiezas import (
     aplicaOperador,
     calcularHeuristica,
     coste,
@@ -106,6 +106,41 @@ def Greedy(tipoHeurisitca: int = 0, *, disp: bool = False) -> tuple[int, int, in
             sucesores = expandir(raiz, tipoHeurisitca)
             generados += len(sucesores)
             for nodo in sucesores:
+                heapq.heappush(abiertos, nodo)
+            MaximaL = max(MaximaL, len(abiertos))
+    if disp:
+        if objetivo:
+            dispSolucion(raiz)
+        elif not objetivo:
+            print("No se ha encontrado solución")
+    return raiz.costeCamino, generados, visitados, MaximaL
+
+
+# AEstrella: Greedy + coste hasta el moemento
+def AEstrella(
+    tipoHeurisitca: int = 0, *, disp: bool = False
+) -> tuple[int, int, int, int]:
+    objetivo = False
+
+    raiz = NodoInicial(tipoHeurisitca)
+    abiertos: list[Nodo] = []
+    sucesores: list[Nodo] = []
+    cerrados: dict[Nodo, int] = {}
+    heapq.heappush(abiertos, raiz)
+
+    generados = 1
+    visitados = 0
+    MaximaL = 0
+    while not objetivo and abiertos:
+        raiz = heapq.heappop(abiertos)
+        visitados += 1
+        objetivo = testObjetivo(raiz.estado)
+        if not objetivo and (raiz not in cerrados or cerrados[raiz] > raiz.costeCamino):
+            cerrados[raiz] = raiz.costeCamino
+            sucesores = expandir(raiz, tipoHeurisitca)
+            generados += len(sucesores)
+            for nodo in sucesores:
+                nodo.heuristica += nodo.costeCamino
                 heapq.heappush(abiertos, nodo)
             MaximaL = max(MaximaL, len(abiertos))
     if disp:
