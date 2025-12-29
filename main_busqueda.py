@@ -1,8 +1,8 @@
 from time import time
 
-from BusquedaHeuristica import AEstrella, Greedy
-from BusquedaNoInformada import BFS, DFS, DFSL, DFSLI
-from OchoPiezas import HEURISITCAS
+from Ejercicios_busqueda_Python.BusquedaHeuristica import AEstrella, Greedy
+from Ejercicios_busqueda_Python.BusquedaNoInformada import BFS, DFS, DFSL, DFSLI
+from Ejercicios_busqueda_Python.OchoPiezas import HEURISITCAS
 
 
 def main():

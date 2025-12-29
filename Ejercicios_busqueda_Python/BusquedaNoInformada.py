@@ -3,7 +3,7 @@ from __future__ import annotations
 from collections import deque
 from dataclasses import dataclass
 
-from OchoPiezas import (
+from .OchoPiezas import (
     aplicaOperador,
     coste,
     estadoInicial,
@@ -37,7 +37,7 @@ def NodoInicial() -> Nodo:
 
 
 def dispCamino(nodo: Nodo) -> None:
-    lista = []
+    lista: list[Nodo] = []
     aux = nodo
 
     print("Estado inicial: \n", estadoInicial().t, "\n")

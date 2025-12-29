@@ -3,7 +3,7 @@ from __future__ import annotations
 import heapq
 from dataclasses import dataclass, field
 
-from OchoPiezas import (
+from .OchoPiezas import (
     aplicaOperador,
     calcularHeuristica,
     coste,

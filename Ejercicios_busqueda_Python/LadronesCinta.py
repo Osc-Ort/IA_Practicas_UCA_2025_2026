@@ -1,4 +1,4 @@
-# Plantilla para los estados
+# Formalización del problema de los ladrones y la cinta automática
 from dataclasses import dataclass
 
 
@@ -12,10 +12,3 @@ class tEstado:
 
     def crearHash(self) -> str:
         return ""
-
-
-operadores = {}
-
-
-def estadoInicial() -> tEstado:
-    pass
