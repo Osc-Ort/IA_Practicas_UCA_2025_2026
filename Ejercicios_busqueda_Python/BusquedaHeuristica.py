@@ -34,10 +34,10 @@ def NodoInicial(tipoHeurisitca: int = 0) -> Nodo:
 
 
 def dispCamino(nodo: Nodo) -> None:
-    lista = []
+    lista: list[Nodo] = []
     aux = nodo
 
-    print("Estado inicial: \n", estadoInicial().t, "\n")
+    print("Estado inicial: \n", estadoInicial(), "\n")
 
     while aux.padre is not None:
         lista.append(aux)
@@ -45,7 +45,7 @@ def dispCamino(nodo: Nodo) -> None:
 
     for nodo in lista[::-1]:
         if nodo.operador in operadores:
-            print("Movimiento hacia: ", operadores[nodo.operador], "\n", nodo.estado.t)
+            print("Movimiento hacia: ", operadores[nodo.operador], "\n", nodo.estado)
             print()
 
 
@@ -55,14 +55,14 @@ def dispSolucion(nodo: Nodo):
     print("Coste: ", nodo.costeCamino)
 
 
-def expandir(nodo: Nodo, tipoHeurisitca: int = 0) -> list:
-    sucesores = []
+def expandir(nodo: Nodo, tipoHeurisitca: int = 0) -> list[Nodo]:
+    sucesores: list[Nodo] = []
 
     for op in operadores.keys():
         if esValido(op, nodo.estado):
             sig = aplicaOperador(op, nodo.estado)
             suc = Nodo(
-                calcularHeuristica(sig, tipoHeurisitca),
+                calcularHeuristica(sig),
                 sig,
                 op,
                 nodo.costeCamino + coste(op, nodo.estado),
@@ -98,7 +98,7 @@ def Greedy(tipoHeurisitca: int = 0, *, disp: bool = False) -> tuple[int, int, in
     visitados = 0
     MaximaL = 0
     while not objetivo and abiertos:
-        raiz = heapq.heappop(abiertos)
+        raiz: Nodo = heapq.heappop(abiertos)
         visitados += 1
         objetivo = testObjetivo(raiz.estado)
         if not objetivo and (raiz not in cerrados or cerrados[raiz] > raiz.costeCamino):
@@ -129,7 +129,7 @@ def AEstrella(
     heapq.heappush(abiertos, raiz)
 
     generados = 1
-    visitados = 0
+    visitados: int = 0
     MaximaL = 0
     while not objetivo and abiertos:
         raiz = heapq.heappop(abiertos)

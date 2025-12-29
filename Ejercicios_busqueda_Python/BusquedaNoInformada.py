@@ -40,7 +40,7 @@ def dispCamino(nodo: Nodo) -> None:
     lista: list[Nodo] = []
     aux = nodo
 
-    print("Estado inicial: \n", estadoInicial().t, "\n")
+    print("Estado inicial: \n", estadoInicial(), "\n")
 
     while aux.padre is not None:
         lista.append(aux)
@@ -48,7 +48,7 @@ def dispCamino(nodo: Nodo) -> None:
 
     for nodo in lista[::-1]:
         if nodo.operador in operadores:
-            print("Movimiento hacia: ", operadores[nodo.operador], "\n", nodo.estado.t)
+            print("Movimiento hacia: ", operadores[nodo.operador], "\n", nodo.estado)
             print()
 
 
@@ -58,8 +58,8 @@ def dispSolucion(nodo: Nodo):
     print("Coste: ", nodo.costeCamino)
 
 
-def expandir(nodo: Nodo) -> list:
-    sucesores = []
+def expandir(nodo: Nodo) -> list[Nodo]:
+    sucesores: list[Nodo] = []
 
     for op in operadores.keys():
         if esValido(op, nodo.estado):
