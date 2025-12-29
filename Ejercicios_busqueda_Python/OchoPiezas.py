@@ -28,19 +28,19 @@ operadores = {8: "ARRIBA", 2: "ABAJO", 4: "IZQDA", 6: "DRCHA"}
 
 
 def estadoInicial() -> tEstado:
-    # return tEstado(np.array([[0, 2, 3], [1, 4, 5], [8, 7, 6]]))
-    # return tEstado(
-    #     np.array([[0, 2, 3], [1, 4, 5], [8, 7, 6]])
-    # )  # Pruebe esta combinación tras haber comprobado la anterior
-    return tEstado(np.array([[0, 1, 2], [3, 4, 5], [6, 7, 8]]))
+    # return tEstado(np.array([[6, 3, 1], [8, 0, 4], [7, 5, 2]]))
+    return tEstado(
+        np.array([[1, 2, 3, 4], [5, 6, 15, 8], [9, 10, 0, 12], [13, 14, 7, 11]])
+    )
+    # return tEstado(np.array([[0, 1, 2], [3, 4, 5], [6, 7, 8]]))
 
 
 def estadoObjetivo() -> tEstado:
-    # return tEstado(np.array([[1, 2, 3], [0, 4, 5], [8, 7, 6]]))
-    # return tEstado(
-    #     np.array([[1, 3, 0], [8, 2, 4], [7, 6, 5]])
-    # )  # Pruebe esta combinación tras haber comprobado la anterior
-    return tEstado(np.array([[1, 2, 3], [4, 5, 6], [7, 8, 0]]))
+    # return tEstado(np.array([[1, 2, 3], [8, 0, 4], [7, 6, 5]]))
+    return tEstado(
+        np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 0]])
+    )
+    # return tEstado(np.array([[1, 2, 3], [4, 5, 6], [7, 8, 0]]))
 
 
 def aplicaOperador(op: int, estado: tEstado) -> tEstado:
