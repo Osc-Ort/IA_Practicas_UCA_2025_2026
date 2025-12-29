@@ -24,7 +24,7 @@ class Nodo:
 
     # Creacion del hash de si mismo
     def __hash__(self) -> int:
-        return self.estado.crearHash.__hash__()
+        return hash(self.estado.crearHash)
 
 
 def NodoInicial() -> Nodo:
@@ -110,6 +110,64 @@ def DFS() -> None:
             cerrados.add(raiz)
             sucesores = expandir(raiz)
             abiertos.extendleft(reversed(sucesores))
+    if objetivo:
+        dispSolucion(raiz)
+    elif not objetivo:
+        print("No se ha encontrado solución")
+
+
+# Búsqueda en profundidad con limite, se cambia a diccionario cerrados por si otra rama mas corta existe
+def DFSL(limiteMax: int = 10) -> None:
+    objetivo = False
+
+    raiz = NodoInicial()
+    abiertos: deque[Nodo] = deque()
+    sucesores: list[Nodo] = []
+    cerrados: dict[Nodo, int] = {}
+    abiertos.append(raiz)
+
+    while not objetivo and abiertos:
+        raiz = abiertos.popleft()
+        objetivo = testObjetivo(raiz.estado)
+        if (
+            not objetivo
+            and (raiz not in cerrados or cerrados[raiz] > raiz.profundidad)
+            and raiz.profundidad < limiteMax
+        ):
+            cerrados[raiz] = raiz.profundidad
+            sucesores = expandir(raiz)
+            abiertos.extendleft(reversed(sucesores))
+    if objetivo:
+        dispSolucion(raiz)
+    elif not objetivo:
+        print("No se ha encontrado solución")
+
+
+# Busqueda en profundidad con limite iterativo
+def DFSLI() -> None:
+    objetivo = False
+
+    raiz = NodoInicial()
+    abiertos: deque[Nodo] = deque()
+    sucesores: list[Nodo] = []
+    cerrados: dict[Nodo, int] = {}
+    abiertos.append(raiz)
+
+    limiteMax = 0
+
+    while not objetivo and limiteMax < 10**6:
+        while not objetivo and abiertos:
+            raiz = abiertos.popleft()
+            if raiz.profundidad == limiteMax:
+                objetivo = testObjetivo(raiz.estado)
+            elif raiz not in cerrados or cerrados[raiz] > raiz.profundidad:
+                cerrados[raiz] = raiz.profundidad
+                sucesores = expandir(raiz)
+                abiertos.extendleft(reversed(sucesores))
+        if not objetivo:
+            cerrados.clear()
+            abiertos.append(NodoInicial())
+            limiteMax += 1
     if objetivo:
         dispSolucion(raiz)
     elif not objetivo:

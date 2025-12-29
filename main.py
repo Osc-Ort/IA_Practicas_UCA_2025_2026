@@ -1,8 +1,8 @@
-from Ejercicios_busqueda_Python.BusquedaNoInformada import BFS, DFS
+from Ejercicios_busqueda_Python.BusquedaNoInformada import BFS, DFS, DFSL, DFSLI
 
 
 def main():
-    BFS()
+    DFSLI()
 
 
 if __name__ == "__main__":
