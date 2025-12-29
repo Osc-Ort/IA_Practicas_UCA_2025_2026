@@ -14,8 +14,7 @@ class tEstado:
     def __init__(self, tablero: np.ndarray):
         self.t = tablero
         self.N = tablero.shape[0]
-        x, y = np.where(self.t == 0)
-        self.fila, self.columna = x[0], y[0]
+        self.fila, self.columna = map(lambda x: x[0], np.where(self.t == 0))
 
     def __repr__(self) -> str:
         return f"{self.t}\nFila hueco: {self.fila}\nColumna hueco: {self.columna}\n"
@@ -108,7 +107,6 @@ def calcularHeuristica(estado: tEstado, tipo: int = 0) -> int:
                 for j in range(estado.N):
                     obj = objetivo.t[i, j]
                     if obj != 0:
-                        x, y = np.where(estado.t == obj)
-                        x, y = x[0], y[0]
+                        x, y = map(lambda x: x[0], np.where(estado.t == obj))
                         suma += abs(x - i) + abs(y - j)
     return suma

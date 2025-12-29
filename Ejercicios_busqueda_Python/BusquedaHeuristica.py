@@ -85,7 +85,7 @@ def expandir(nodo: Nodo, tipoHeurisitca: int = 0) -> list:
 
 
 # Greedy: Compara solo usando la heurisitca
-def Greedy(tipoHeurisitca: int = 0) -> tuple[int, int, int, int]:
+def Greedy(tipoHeurisitca: int = 0, *, disp: bool = False) -> tuple[int, int, int, int]:
     objetivo = False
 
     raiz = NodoInicial(tipoHeurisitca)
@@ -108,8 +108,9 @@ def Greedy(tipoHeurisitca: int = 0) -> tuple[int, int, int, int]:
             for nodo in sucesores:
                 heapq.heappush(abiertos, nodo)
             MaximaL = max(MaximaL, len(abiertos))
-    if objetivo:
-        dispSolucion(raiz)
-    elif not objetivo:
-        print("No se ha encontrado solución")
+    if disp:
+        if objetivo:
+            dispSolucion(raiz)
+        elif not objetivo:
+            print("No se ha encontrado solución")
     return raiz.costeCamino, generados, visitados, MaximaL
