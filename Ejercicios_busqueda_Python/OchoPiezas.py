@@ -14,7 +14,8 @@ class tEstado:
     def __init__(self, tablero: np.ndarray):
         self.t = tablero
         self.N = tablero.shape[0]
-        self.fila, self.columna = np.where(tablero == 0)  # type: ignore
+        x, y = np.where(self.t == 0)
+        self.fila, self.columna = x[0], y[0]
 
     def __repr__(self) -> str:
         return f"{self.t}\nFila hueco: {self.fila}\nColumna hueco: {self.columna}\n"
@@ -28,16 +29,18 @@ operadores = {8: "ARRIBA", 2: "ABAJO", 4: "IZQDA", 6: "DRCHA"}
 
 def estadoInicial() -> tEstado:
     # return tEstado(np.array([[0, 2, 3], [1, 4, 5], [8, 7, 6]]))
-    return tEstado(
-        np.array([[0, 2, 3], [1, 4, 5], [8, 7, 6]])
-    )  # Pruebe esta combinación tras haber comprobado la anterior
+    # return tEstado(
+    #     np.array([[0, 2, 3], [1, 4, 5], [8, 7, 6]])
+    # )  # Pruebe esta combinación tras haber comprobado la anterior
+    return tEstado(np.array([[0, 1, 2], [3, 4, 5], [6, 7, 8]]))
 
 
 def estadoObjetivo() -> tEstado:
     # return tEstado(np.array([[1, 2, 3], [0, 4, 5], [8, 7, 6]]))
-    return tEstado(
-        np.array([[1, 3, 0], [8, 2, 4], [7, 6, 5]])
-    )  # Pruebe esta combinación tras haber comprobado la anterior
+    # return tEstado(
+    #     np.array([[1, 3, 0], [8, 2, 4], [7, 6, 5]])
+    # )  # Pruebe esta combinación tras haber comprobado la anterior
+    return tEstado(np.array([[1, 2, 3], [4, 5, 6], [7, 8, 0]]))
 
 
 def aplicaOperador(op: int, estado: tEstado) -> tEstado:
@@ -88,3 +91,24 @@ def testObjetivo(estado: tEstado) -> bool:
 
 def coste(operador: int, estado: tEstado) -> int:
     return 1
+
+
+HEURISITCAS = {0: "Mal colocadas", 1: "Manhattan"}
+
+
+def calcularHeuristica(estado: tEstado, tipo: int = 0) -> int:
+    suma = 0
+    match HEURISITCAS[tipo]:
+        case "Mal colocadas":
+            # -1 para para no contar el hueco vacio
+            suma = max(0, np.sum(estado.t != estadoObjetivo().t) - 1)
+        case "Manhattan":
+            objetivo = estadoObjetivo()
+            for i in range(estado.N):
+                for j in range(estado.N):
+                    obj = objetivo.t[i, j]
+                    if obj != 0:
+                        x, y = np.where(estado.t == obj)
+                        x, y = x[0], y[0]
+                        suma += abs(x - i) + abs(y - j)
+    return suma

@@ -24,7 +24,7 @@ class Nodo:
 
     # Creacion del hash de si mismo
     def __hash__(self) -> int:
-        return hash(self.estado.crearHash)
+        return hash(self.estado.crearHash())
 
 
 def NodoInicial() -> Nodo:
@@ -131,10 +131,10 @@ def DFSL(limiteMax: int = 10) -> None:
         objetivo = testObjetivo(raiz.estado)
         if (
             not objetivo
-            and (raiz not in cerrados or cerrados[raiz] > raiz.profundidad)
-            and raiz.profundidad < limiteMax
+            and (raiz not in cerrados or cerrados[raiz] > raiz.costeCamino)
+            and raiz.costeCamino < limiteMax
         ):
-            cerrados[raiz] = raiz.profundidad
+            cerrados[raiz] = raiz.costeCamino
             sucesores = expandir(raiz)
             abiertos.extendleft(reversed(sucesores))
     if objetivo:
@@ -160,8 +160,8 @@ def DFSLI() -> None:
             raiz = abiertos.popleft()
             if raiz.profundidad == limiteMax:
                 objetivo = testObjetivo(raiz.estado)
-            elif raiz not in cerrados or cerrados[raiz] > raiz.profundidad:
-                cerrados[raiz] = raiz.profundidad
+            elif raiz not in cerrados or cerrados[raiz] > raiz.costeCamino:
+                cerrados[raiz] = raiz.costeCamino
                 sucesores = expandir(raiz)
                 abiertos.extendleft(reversed(sucesores))
         if not objetivo:
