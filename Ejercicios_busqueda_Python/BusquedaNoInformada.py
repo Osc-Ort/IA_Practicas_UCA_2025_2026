@@ -26,6 +26,11 @@ class Nodo:
     def __hash__(self) -> int:
         return hash(self.estado.crearHash())
 
+    def __eq__(self, otro) -> bool:
+        if not isinstance(otro, Nodo):
+            return False
+        return self.estado.crearHash() == otro.estado.crearHash()
+
 
 def NodoInicial() -> Nodo:
     return Nodo(estadoInicial(), 0, 0, 0, None)
