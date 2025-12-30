@@ -189,6 +189,4 @@ def utilidad(nodo: Nodo) -> int:
 
 
 def heurisitca(nodo: Nodo) -> int:
-    puntuacion_max = 24 - len(nodo.manoMax)
-    puntuacion_min = 24 - len(nodo.manoMin)
-    return puntuacion_max - puntuacion_min
+    return len(nodo.manoMax) - len(nodo.manoMin)
