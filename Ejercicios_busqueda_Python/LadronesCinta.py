@@ -17,7 +17,7 @@ class tEstado:
         self.din_ladrones, self.din_policia = dinLad, dinPol
 
     def __repr__(self) -> str:
-        return f"{[el for el in self.cinta]}\nDinero ladrones: {self.din_ladrones}\nDinero policia: {self.din_policia}\n"
+        return f"{list(self.cinta)}\nDinero ladrones: {self.din_ladrones}\nDinero policia: {self.din_policia}\n"
 
     def crearHash(self) -> str:
         return f"{self.cinta}{self.din_ladrones}{self.din_policia}"
