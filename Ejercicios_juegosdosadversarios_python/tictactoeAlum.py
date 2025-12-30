@@ -21,7 +21,7 @@ class Nodo:
         # Función para representar el nodo en forma de cadena (se llama a esta función al hacer print).
         # Se utiliza el diccionario para utilizar la visualización a través de simbolos
 
-        visual = {1: "X", -1: "O", 0.0: " "}
+        visual = {1: "X", -1: "O", 0: " "}
         string = f"{' ----+----+----'}\n|"
         for i in range(self.tablero.shape[0]):
             for j in range(self.tablero.shape[1]):
