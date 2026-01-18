@@ -14,14 +14,14 @@ class Nodo:
 
     def __init__(self, tablero: np.ndarray):
         self.tablero = tablero
-        self.N = self.tablero.shape[0]
+        self.N: int = self.tablero.shape[0]
         self.vacias = len(np.where(tablero == 0)[0])
 
     def __str__(self) -> str:
         # Función para representar el nodo en forma de cadena (se llama a esta función al hacer print).
         # Se utiliza el diccionario para utilizar la visualización a través de simbolos
 
-        visual = {1: "X", -1: "O", 0: " "}
+        visual: dict[int, str] = {1: "X", -1: "O", 0: " "}
         string = f"{' ----+----+----'}\n|"
         for i in range(self.tablero.shape[0]):
             for j in range(self.tablero.shape[1]):
@@ -157,11 +157,11 @@ def terminal(actual: Nodo) -> bool:
             == tablero[i * actual.N + 2]
             != 0
         )
-        termin = termin or tablero[i] == tablero[i + 3] == tablero[i + 6] != 0
+        termin: bool = termin or tablero[i] == tablero[i + 3] == tablero[i + 6] != 0
         i += 1
 
     # Diagonales
-    termin = (
+    termin: bool = (
         termin
         or tablero[0] == tablero[4] == tablero[8] != 0
         or tablero[2] == tablero[4] == tablero[6] != 0

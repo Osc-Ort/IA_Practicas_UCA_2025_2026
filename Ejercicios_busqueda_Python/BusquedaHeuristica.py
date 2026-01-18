@@ -91,7 +91,7 @@ def Greedy(tipoHeurisitca: int = 0, *, disp: bool = False) -> tuple[int, int, in
     raiz = NodoInicial(tipoHeurisitca)
     abiertos: list[Nodo] = []
     sucesores: list[Nodo] = []
-    cerrados: dict[Nodo, int] = {}
+    cerrados: set[Nodo] = set()
     heapq.heappush(abiertos, raiz)
 
     generados = 1
@@ -101,8 +101,8 @@ def Greedy(tipoHeurisitca: int = 0, *, disp: bool = False) -> tuple[int, int, in
         raiz: Nodo = heapq.heappop(abiertos)
         visitados += 1
         objetivo = testObjetivo(raiz.estado)
-        if not objetivo and (raiz not in cerrados or cerrados[raiz] > raiz.costeCamino):
-            cerrados[raiz] = raiz.costeCamino
+        if not objetivo and raiz not in cerrados:
+            cerrados.add(raiz)
             sucesores = expandir(raiz, tipoHeurisitca)
             generados += len(sucesores)
             for nodo in sucesores:
