@@ -33,6 +33,7 @@ class Nodo:
 @dataclass
 class Jugada:
     carta: str
+    jugador: int
 
     def __str__(self):
         dicc: dict[str, str] = {"O": "oros", "B": "bastos"}
@@ -44,7 +45,8 @@ class Jugada:
 jugadas: list[Jugada] = []
 for i in "OB":
     for j in range(1, 13):
-        jugadas.append(Jugada(i + str(j)))
+        for jug in [-1, 1]:
+            jugadas.append(Jugada(i + str(j), jug))
 ######
 
 
@@ -112,8 +114,7 @@ def aplicaJugada(actual: Nodo, jugada: Jugada, jugador: int) -> Nodo:
     return nuevo
 
 
-# Necesariamente en esta hay que ponerle jugador, no queda otra
-def esValida(actual: Nodo, jugada: Jugada, jugador: int) -> bool:
+def esValida(actual: Nodo, jugada: Jugada) -> bool:
     """Comprueba si dada una Jugada, es posible aplicarla o no. Evite la instrucción 'jugada in jugadas'
     para la comprobación ya que no tiene por qué estar incluida una lista de posibles jugadas. Por tanto,
     use las operaciones lógicas para verificar la validez de la jugada.
@@ -130,7 +131,7 @@ def esValida(actual: Nodo, jugada: Jugada, jugador: int) -> bool:
         bool: Devuelve True en caso de que pueda realizarse la Jugada, False en caso contrario
     """
     valida = False
-    match jugador:
+    match jugada.jugador:
         case 1:
             valida = jugada.carta in actual.manoMax
         case -1:
